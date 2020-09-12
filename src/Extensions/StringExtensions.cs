@@ -19,9 +19,9 @@ namespace Extensions
         /// <summary>
         /// Removes a substring from a string
         /// </summary>
-        public static string Remove(this string str, string valueToRemove)
+        public static string Without(this string str, string valueToRemove)
         {
-            return str.Replace(valueToRemove, "");
+            return str.Replace(valueToRemove, string.Empty);
         }
 
         /// <summary>

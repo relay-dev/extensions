@@ -9,31 +9,6 @@ namespace Extensions
 {
     public static class DataTableExtensions
     {
-        public static string ToToDelimitedString(this DataTable dataTable, string delimiter = ",", char textQualifier = '"', bool isSuppressHeader = false)
-        {
-            var stringBuilder = new StringBuilder();
-
-            IEnumerable<object> columnNames = dataTable.Columns.Cast<DataColumn>().Select(column => StringToDelimitedCell(column.ColumnName, textQualifier));
-
-            if (!isSuppressHeader)
-            {
-                stringBuilder.AppendLine(string.Join(delimiter, columnNames));
-            }
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                IEnumerable<object> fields = row.ItemArray.Select(field => StringToDelimitedCell(field, textQualifier));
-                stringBuilder.AppendLine(string.Join(delimiter, fields));
-            }
-
-            return stringBuilder.ToString();
-        }
-
-        public static string ToCsvString(this DataTable dataTable, char textQualifier = '"', bool isSuppressHeader = false)
-        {
-            return ToToDelimitedString(dataTable, ",", textQualifier, isSuppressHeader);
-        }
-
         public static string ToPrintFriendly(this DataTable dataTable, string startEachLineWith = "")
         {
             var printFriendly = new StringBuilder();
@@ -64,6 +39,31 @@ namespace Extensions
             }
 
             return printFriendly.ToString();
+        }
+
+        public static string ToToDelimitedString(this DataTable dataTable, string delimiter = ",", char textQualifier = '"', bool isSuppressHeader = false)
+        {
+            var stringBuilder = new StringBuilder();
+
+            IEnumerable<object> columnNames = dataTable.Columns.Cast<DataColumn>().Select(column => StringToDelimitedCell(column.ColumnName, textQualifier));
+
+            if (!isSuppressHeader)
+            {
+                stringBuilder.AppendLine(string.Join(delimiter, columnNames));
+            }
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                IEnumerable<object> fields = row.ItemArray.Select(field => StringToDelimitedCell(field, textQualifier));
+                stringBuilder.AppendLine(string.Join(delimiter, fields));
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        public static string ToCsvString(this DataTable dataTable, char textQualifier = '"', bool isSuppressHeader = false)
+        {
+            return ToToDelimitedString(dataTable, ",", textQualifier, isSuppressHeader);
         }
 
         public static DataTable RemoveDuplicateRows(this DataTable dataTable, string colName)
