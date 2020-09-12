@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Relay.Extensions</PackageId>
+    <Authors>Scott Ferguson</Authors>
+    <Company>Relay Technologies</Company>
+    <Product />
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Copyright>Copyright ©2020</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <Description>Extension methods for .NET Core</Description>
+    <PackageProjectUrl>https://github.com/relay-dev/extensions</PackageProjectUrl>
+    <PackageIconUrl>https://i.imgur.com/KLdrWTh.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/relay-dev/extensions.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+</Project>
