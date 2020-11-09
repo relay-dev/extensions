@@ -71,15 +71,15 @@ namespace Extensions
             var hashtable = new Hashtable();
             var duplicateList = new ArrayList();
 
-            foreach (DataRow drow in dataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
-                if (hashtable.Contains(drow[colName]))
+                if (hashtable.Contains(row[colName]))
                 {
-                    duplicateList.Add(drow);
+                    duplicateList.Add(row);
                 }
                 else
                 {
-                    hashtable.Add(drow[colName], string.Empty);
+                    hashtable.Add(row[colName], string.Empty);
                 }
             }
 
@@ -138,9 +138,9 @@ namespace Extensions
             return dataTable;
         }
 
-        public static DataTable AddColumnWithValue(this DataTable dataTable, string columnName, Type columnType, object staticValue)
+        public static DataTable AddColumnWithValue<TColumn>(this DataTable dataTable, string columnName, TColumn staticValue)
         {
-            dataTable.Columns.Add(columnName, columnType);
+            dataTable.Columns.Add(columnName, typeof(TColumn));
 
             foreach (DataRow dataRow in dataTable.Rows)
             {
@@ -150,10 +150,12 @@ namespace Extensions
             return dataTable;
         }
 
-        public static DataTable AddAuditFields(this DataTable dataTable, string createdBy, DateTime createdDate)
+        public static DataTable AddAuditFields(this DataTable dataTable, string createdBy, DateTime? createdDate = null)
         {
             dataTable.Columns.Add("CreatedBy", typeof(string));
             dataTable.Columns.Add("CreatedDate", typeof(DateTime));
+
+            createdDate ??= DateTime.UtcNow;
 
             foreach (DataRow dataRow in dataTable.Rows)
             {
