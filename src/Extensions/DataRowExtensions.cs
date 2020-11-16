@@ -5,7 +5,7 @@ namespace Extensions
 {
     public static class DataRowExtensions
     {
-        public static DataPoint DataPoint(this DataRow dataRow, string columnName)
+        public static DataPoint GetDataPoint(this DataRow dataRow, string columnName)
         {
             object o = dataRow[columnName];
 
