@@ -152,6 +152,19 @@ namespace Extensions
         }
 
         /// <summary>
+        /// Truncates a string to the maxlength, or the length or the string
+        /// </summary>
+        public static string Truncate(this string str, int maxLength)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return str;
+            }
+
+            return str.Substring(0, Math.Min(str.Length, maxLength));
+        }
+
+        /// <summary>
         /// Removes the last occurrence of a substring from a string
         /// </summary>
         public static string RemoveLastOccurrenceOf(this string str, string valueToRemove)
