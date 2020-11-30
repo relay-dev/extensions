@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Extensions
 {
@@ -15,6 +17,22 @@ namespace Extensions
         public static string ToCsvString<T>(this IEnumerable<T> items)
         {
             return $"'{string.Join("', '", items)}'";
+        }
+
+        public static IEnumerable<TSource> WhereLike<TSource>(this IEnumerable<TSource> sequence, Func<TSource, string> expression, string value, char wildcard = '*')
+        {
+            var regEx = WildcardToRegex(value, wildcard);
+
+            var arraySequence = sequence as TSource[] ?? sequence.ToArray();
+
+            try
+            {
+                return arraySequence.Where(item => Regex.IsMatch(expression(item), regEx));
+            }
+            catch (ArgumentNullException)
+            {
+                return arraySequence;
+            }
         }
 
         public static DataTable ToDataTable<T>(this IEnumerable<T> items)
@@ -41,6 +59,11 @@ namespace Extensions
             }
 
             return dataTable;
+        }
+
+        private static string WildcardToRegex(string value, char wildcard)
+        {
+            return "(?i:^" + Regex.Escape(value).Replace("\\" + wildcard, "." + wildcard) + "$)";
         }
     }
 }
