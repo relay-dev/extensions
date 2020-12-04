@@ -166,6 +166,19 @@ namespace Extensions
             return dataTable;
         }
 
+        public static DataTable AddCreatedBy(this DataTable dataTable, string createdBy, DateTime? createdDate = null)
+        {
+            createdDate ??= DateTime.UtcNow;
+
+            foreach (DataRow dataRow in dataTable.Rows)
+            {
+                dataRow["CreatedBy"] = createdBy;
+                dataRow["CreatedDate"] = createdDate;
+            };
+
+            return dataTable;
+        }
+
         public static DataTable ThrowIfNullOrEmpty(this DataTable dataTable, string errorMessageIfNull = "DataTable was null", string errorMessageIfEmpty = "DataTable was empty")
         {
             if (dataTable == null)
